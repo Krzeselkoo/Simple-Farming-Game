@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7258786980755470900
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3882491235706605668, guid: 512481f66cf30594e8b91a2688053649, type: 3}
+      propertyPath: seedFruit
+      value: 
+      objectReference: {fileID: -8887134506253189257, guid: d0a8afe7d9ef50448a04cb5ad14ccac0, type: 3}
+    - target: {fileID: 5111455362994380307, guid: 512481f66cf30594e8b91a2688053649, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111455362994380307, guid: 512481f66cf30594e8b91a2688053649, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111455362994380307, guid: 512481f66cf30594e8b91a2688053649, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111455362994380307, guid: 512481f66cf30594e8b91a2688053649, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111455362994380307, guid: 512481f66cf30594e8b91a2688053649, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111455362994380307, guid: 512481f66cf30594e8b91a2688053649, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111455362994380307, guid: 512481f66cf30594e8b91a2688053649, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111455362994380307, guid: 512481f66cf30594e8b91a2688053649, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111455362994380307, guid: 512481f66cf30594e8b91a2688053649, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111455362994380307, guid: 512481f66cf30594e8b91a2688053649, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9216881656742287445, guid: 512481f66cf30594e8b91a2688053649, type: 3}
+      propertyPath: m_Name
+      value: TomatoSeed
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 512481f66cf30594e8b91a2688053649, type: 3}
