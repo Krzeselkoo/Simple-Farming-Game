@@ -215,11 +215,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 906ea631621dbf6428d4ee14fb5833dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soilName: 
+  mass: 0
+  growTime: 0
+  dirt: {fileID: 4223017534960490108}
   placeSpot: {fileID: 5250884788653228068}
   seedSpot: {fileID: 5885892852439443477}
-  seed: {fileID: 0}
   seedObject: {fileID: 0}
+  seed: {fileID: 0}
+  isWatered: 0
+  wateredMaterial: {fileID: 2100000, guid: 18f2279cfbd2bce4cb37f2e8b482947c, type: 2}
+  notWateredMaterial: {fileID: 2100000, guid: bafe633910a509649aeed6fbfe41e1a0, type: 2}
 --- !u!54 &6389735749798277457
 Rigidbody:
   m_ObjectHideFlags: 0

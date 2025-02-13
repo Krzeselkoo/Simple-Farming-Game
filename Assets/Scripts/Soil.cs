@@ -14,7 +14,7 @@ public class Soil : Interactable, ISeedParent
     private Stopwatch stopWatch;
 
     //Transforms
-
+    [SerializeField] private GameObject dirt;
     public Transform placeSpot;
     public Transform seedSpot;
 
@@ -32,11 +32,15 @@ public class Soil : Interactable, ISeedParent
 
     public bool isWatered;
     private bool isGrowingCrop;
-    
+
+    //Materials  
+
+    [SerializeField] private Material wateredMaterial;
+    [SerializeField] private Material notWateredMaterial;
     //==========================================================================================
 
     private void Start(){
-        isWatered = false;
+        setNotWatered();
         isGrowingCrop = false;
         stopWatch = new Stopwatch();
         growTime = 5f;
@@ -65,12 +69,15 @@ public class Soil : Interactable, ISeedParent
             else if(player.heldObject.TryGetComponent<Spade>(out Spade spade) && seedObject != null ){
                 DestroySeedObject();
                 StopwatchStopAndReset(stopWatch);
+                isGrowingCrop = false;
+                setNotWatered();
             }
             else if(player.heldObject.TryGetComponent<Bucket>(out Bucket bucket) && bucket.waterLevel >= 0.25f){
+                setWatered();
                 if(isWatered){
                     stopWatch.Reset();
                 }
-                isWatered = true;
+                setWatered();
                 bucket.waterLevel -= 0.25f;
             }
 
@@ -90,11 +97,11 @@ public class Soil : Interactable, ISeedParent
     }
 
     private void Grow(){
-        if(seedObject != null){
+        if(seedObject != null && isGrowingCrop){
             grownCrop = Instantiate(seed.GetFruit());
             grownCrop.transform.SetParent(placeSpot, false);
             DestroySeedObject();
-            isWatered = false;
+            setNotWatered();
             isGrowingCrop = false;
         }
     }
@@ -122,12 +129,23 @@ public class Soil : Interactable, ISeedParent
                     stopWatch.Reset();
                     stopWatch.Start();
                 }else if(stopWatch.Elapsed.Seconds > 10f){
-                    isWatered = false;
+                    setNotWatered();
                     StopwatchStopAndReset(stopWatch);
                 }
             }
         }
     }
+
+    private void setWatered(){
+        isWatered = true;
+        dirt.GetComponent<MeshRenderer>().material = wateredMaterial;
+    }
+
+    private void setNotWatered(){
+        isWatered = false;
+        dirt.GetComponent<MeshRenderer>().material = notWateredMaterial;
+    }
+
 
     private void StopwatchStopAndReset(Stopwatch stopwatch){
         stopwatch.Stop();

@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameInputs gameInputs;
 
     //transforms 
-    [SerializeField] private Transform cameraObject;
+    [SerializeField] private GameObject cameraObject;
     [SerializeField] private Transform orientation;
     [SerializeField] public Transform heldObjectPos;
 
@@ -42,8 +42,9 @@ public class Player : MonoBehaviour
     //boolean values
     [SerializeField] private bool readyToJump;
     [SerializeField] private bool grounded;
-
     [SerializeField] private bool jump;
+    [SerializeField] private bool canMove = true;
+
     //float values 
     [SerializeField] private float jumpCooldown;
     [SerializeField] private float groundDrag;
@@ -143,7 +144,6 @@ public class Player : MonoBehaviour
 
 
     private void LateUpdate(){
-        CameraRotation();
         HandleMovement();
     }
 
@@ -153,45 +153,34 @@ public class Player : MonoBehaviour
     }
 
     private void HandleMovement(){
+        if(canMove){
+            Vector2 inputVector = gameInputs.GetMovementVectorNormalized();
+            
+            if(grounded && velocity.y < 0){
+                velocity.y = -2f;
+            }
 
-        Vector2 inputVector = gameInputs.GetMovementVectorNormalized();
-        
-        if(grounded && velocity.y < 0){
-            velocity.y = -2f;
+            Vector3 move = orientation.transform.right * inputVector.x + orientation.transform.forward * inputVector.y;
+            controller.Move(move * speed * speedMultiplier * Time.deltaTime);
+    
+            if(jump){
+                velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+                jump = false;
+                Invoke(nameof(ResetJump), jumpCooldown);
+            }
+
+            velocity.y += gravity * Time.deltaTime;
+
+            controller.Move(velocity * Time.deltaTime);
         }
 
-        Vector3 move = orientation.transform.right * inputVector.x + orientation.transform.forward * inputVector.y;
-        controller.Move(move * speed * speedMultiplier * Time.deltaTime);
-  
-        if(jump){
-            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
-            jump = false;
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }
-
-        velocity.y += gravity * Time.deltaTime;
-
-        controller.Move(velocity * Time.deltaTime);
-
-    }   
-
-    private void CameraRotation(){
-        float mouseX = Input.GetAxisRaw("Mouse X") * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * sensY;
-
-        yRotation += mouseX;
-        xRotation -= mouseY;
-
-        xRotation = Mathf.Clamp(xRotation, -90f,90f);
-        cameraObject.transform.rotation = Quaternion.Euler(xRotation, yRotation,0);
-        orientation.transform.rotation = Quaternion.Euler(0,yRotation,0);
-    }
+    } 
 
 
     private void InteractSelect(){
 
         RaycastHit hit;
-        if (Physics.Raycast(cameraObject.position, cameraObject.forward, out hit, 3.5f, InteractLayer)){
+        if (Physics.Raycast(cameraObject.transform.position, cameraObject.transform.forward, out hit, 3.5f, InteractLayer)){
 
             if(hit.transform.TryGetComponent(out Interactable hitSelected)){
                 if(hitSelected != selectedInteractable){
@@ -248,5 +237,22 @@ public class Player : MonoBehaviour
     private void ResetJump(){
         readyToJump = true;
     }
+    
+    public void setCanMove(){
+        canMove = true;
+    }
+
+    public void setCantMove(){
+        canMove = false;
+    }
+
+    public ICameraObject getCameraObject(){
+        return cameraObject.GetComponent<ICameraObject>();
+    }
+
+    public Canvas GetPlayerCanvas(){
+        return UICanvas;
+    }
+
 
 }
